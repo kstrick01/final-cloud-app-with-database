@@ -51,20 +51,18 @@
                 {% endfor %}
             </div>
             <!-- Task: show questions and choices -->
-            <!-- <HINT> Use Bootstrap Collapse to hide exam first, more details could be found here
-            https://www.w3schools.com/bootstrap4/bootstrap_collapse.asp-->
-
+            {% if user.is_authenticated %}
             <br>
-             <center><button data-toggle="collapse" data-target="#exam">Examination</button></center>
-            <br>
+            <p><b>Click to take exam</b></p>
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#exam">Start Exam</button>
             <div id="exam" class="collapse">
-                Click to expand elements within the collapse div
+                Jump to...
                 </div>
 
             
 
             <!-- <HINT> If user is authenticated, show course exam with a list of question -->
-                {% if user.is_authenticated %}
+                
             <!-- <HINT> Each example will have many questions -->
 
             <!-- <HINT> Each question will have many choices -->
@@ -77,8 +75,8 @@
 
              <!-- A choice submission form example 
             -->
-            <form id="questionform" action="point to a submit view" method="post">
-                {% for lesson in course.lesson_set.all %}
+            <form id="questionform" action="{% url 'onlinecourse:submit' course.id %}" method="POST">
+                {% for question in course.question_set.all %}
                 {% for question in lesson.question_set.all %}
                         <div class="card mt-1">
                             <div class="card-header"><h5>{{ question.question_text}}</h5></div>
@@ -97,8 +95,7 @@
                     <input class="btn btn-success btn-block" type="submit" value="Submit">
             </form> -->
 
-            <!--Check here to see more details Bootstrap checkbox
-             https://www.w3schools.com/bootstrap4/bootstrap_forms_inputs.asp-->
+  
     </div>
 </body>
 </html>
